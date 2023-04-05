@@ -4,13 +4,16 @@ const lista = document.getElementById("lista");
 formulario.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
-  criaElemento(
-    evento.target.elements["nome"].value,
-    evento.target.elements["quantidade"].value
-  );
+  const itemNome = evento.target.elements["nome"];
+  const itemQuantidade = evento.target.elements["quantidade"];
+
+  criaItem(itemNome.value, itemQuantidade.value);
+
+  itemNome.value = "";
+  itemQuantidade.value = "";
 });
 
-function criaElemento(nome, quantidade) {
+function criaItem(nome, quantidade) {
   const novoItem = document.createElement("li");
   novoItem.classList.add("item");
 
@@ -18,6 +21,7 @@ function criaElemento(nome, quantidade) {
   numeroItem.innerHTML = quantidade;
 
   novoItem.appendChild(numeroItem);
+
   novoItem.innerHTML += nome;
 
   lista.appendChild(novoItem);
