@@ -1,28 +1,27 @@
-const formulario = document.getElementById("novoItem");
+const formulario = document.getElementById("formulario");
 const lista = document.getElementById("lista");
 
 formulario.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
-  const itemNome = evento.target.elements["nome"];
-  const itemQuantidade = evento.target.elements["quantidade"];
+  const nomeItem = evento.target.elements["nome"];
+  const quantidadeItem = evento.target.elements["quantidade"];
 
-  criaItem(itemNome.value, itemQuantidade.value);
+  criaItem(nomeItem.value, quantidadeItem.value);
 
-  itemNome.value = "";
-  itemQuantidade.value = "";
+  nomeItem.value = "";
+  quantidadeItem.value = "";
 });
 
-function criaItem(nome, quantidade) {
+function criaItem(nomeItem, quantidadeItem) {
   const novoItem = document.createElement("li");
   novoItem.classList.add("item");
 
   const numeroItem = document.createElement("strong");
-  numeroItem.innerHTML = quantidade;
+  numeroItem.innerHTML = quantidadeItem;
 
   novoItem.appendChild(numeroItem);
 
-  novoItem.innerHTML += nome;
-
+  novoItem.innerHTML += nomeItem;
   lista.appendChild(novoItem);
 }
