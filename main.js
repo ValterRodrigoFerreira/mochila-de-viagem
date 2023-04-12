@@ -1,5 +1,10 @@
 const formulario = document.getElementById("formulario");
 const lista = document.getElementById("lista");
+const itens = JSON.parse(localStorage.getItem("itens")) || [];
+
+itens.forEach((element) => {
+  console.log(element.nome, element.quantidade);
+});
 
 formulario.addEventListener("submit", (evento) => {
   evento.preventDefault();
@@ -8,17 +13,29 @@ formulario.addEventListener("submit", (evento) => {
   const quantidadeItem = evento.target.elements["quantidade"];
 
   criaItem(nomeItem.value, quantidadeItem.value);
+
+  nomeItem.value = "";
+  quantidadeItem.value = "";
 });
 
 function criaItem(nomeItem, quantidadeItem) {
-  novoItem = document.createElement("li");
+  const novoItem = document.createElement("li");
   novoItem.classList.add("item");
 
-  numeroItem = document.createElement("strong");
-
+  const numeroItem = document.createElement("strong");
   numeroItem.innerHTML = quantidadeItem;
 
   novoItem.appendChild(numeroItem);
+
   novoItem.innerHTML += nomeItem;
   lista.appendChild(novoItem);
+
+  const itemAtual = {
+    nomeItem: nomeItem,
+    quantidadeItem: quantidadeItem,
+  };
+
+  itens.push(itemAtual);
+
+  localStorage.setItem("itens", JSON.stringify(itens));
 }
