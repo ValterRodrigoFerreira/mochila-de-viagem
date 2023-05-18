@@ -1,41 +1,24 @@
-const formulario = document.getElementById("formulario");
-const lista = document.getElementById("lista");
-const itens = JSON.parse(localStorage.getItem("itens")) || [];
-
-itens.forEach((element) => {
-  console.log(element.nome, element.quantidade);
-});
+formulario = document.getElementById("formulario");
+lista = document.getElementById("lista");
 
 formulario.addEventListener("submit", (evento) => {
   evento.preventDefault();
 
-  const nomeItem = evento.target.elements["nome"];
-  const quantidadeItem = evento.target.elements["quantidade"];
+  const nome = evento.target.elements["nome"];
+  const quantidade = evento.target.elements["quantidade"];
 
-  criaItem(nomeItem.value, quantidadeItem.value);
-
-  nomeItem.value = "";
-  quantidadeItem.value = "";
+  criaElemento(nome.value, quantidade.value);
 });
 
-function criaItem(nomeItem, quantidadeItem) {
+function criaElemento(nome, quantidade) {
   const novoItem = document.createElement("li");
   novoItem.classList.add("item");
 
   const numeroItem = document.createElement("strong");
-  numeroItem.innerHTML = quantidadeItem;
+  numeroItem.innerHTML = quantidade;
 
   novoItem.appendChild(numeroItem);
+  novoItem.innerHTML += nome;
 
-  novoItem.innerHTML += nomeItem;
   lista.appendChild(novoItem);
-
-  const itemAtual = {
-    nomeItem: nomeItem,
-    quantidadeItem: quantidadeItem,
-  };
-
-  itens.push(itemAtual);
-
-  localStorage.setItem("itens", JSON.stringify(itens));
 }
